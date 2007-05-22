@@ -2,7 +2,7 @@ Summary:	Ruby event-processing library
 Name:		ruby-eventmachine
 Version:	0.7.0
 Release:	1
-License:	Ruby
+License:	GPL v2
 Group:		Development/Libraries
 Source0:	http://rubyforge.org/frs/download.php/14933/eventmachine-%{version}.gem
 # Source0-md5:	b22a7d79ba3beb6c38d1b44ddc39560f
@@ -41,6 +41,7 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
+%doc README RELEASE_NOTES TODO
 #%attr(755,root,root) %{_bindir}/*
 %{ruby_rubylibdir}/*.rb
 %{ruby_rubylibdir}/evma
