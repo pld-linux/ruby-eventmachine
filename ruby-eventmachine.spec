@@ -4,7 +4,7 @@ Version:	0.7.0
 Release:	1
 License:	Ruby
 Group:		Development/Libraries
-Source0:	http://rubyforge.org/frs/download.php/14933/eventmachine-0.7.0.gem
+Source0:	http://rubyforge.org/frs/download.php/14933/eventmachine-%{version}.gem
 # Source0-md5:	b22a7d79ba3beb6c38d1b44ddc39560f
 URL:		http://rubyforge.org/projects/eventmachine/
 BuildRequires:	rpmbuild(macros) >= 1.277
@@ -15,7 +15,10 @@ BuildRequires:	setup.rb
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
-Ruby/EventMachine is a fast, simple event-processing library for Ruby programs. It lets you write network clients and servers without handling sockets- all you do is send and receive data. Single-threaded socket engine- scalable and FAST!
+Ruby/EventMachine is a fast, simple event-processing library for Ruby
+programs. It lets you write network clients and servers without
+handling sockets- all you do is send and receive data. Single-threaded
+socket engine- scalable and FAST!
 
 %prep
 %setup -q -c -T
