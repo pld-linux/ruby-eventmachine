@@ -1,4 +1,5 @@
 Summary:	Ruby event-processing library
+Summary(pl.UTF-8):	Biblioteka przetwarzania zdarzeń dla języka Ruby
 Name:		ruby-eventmachine
 Version:	0.7.0
 Release:	1
@@ -17,8 +18,14 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 %description
 Ruby/EventMachine is a fast, simple event-processing library for Ruby
 programs. It lets you write network clients and servers without
-handling sockets- all you do is send and receive data. Single-threaded
-socket engine- scalable and FAST!
+handling sockets - all you do is send and receive data.
+Single-threaded socket engine - scalable and FAST!
+
+%description -l pl.UTF-8
+Ruby/EventMachine to szybka, prosta biblioteka przetwarzania zdarzeń
+dla programów w języku Ruby. Pozwala pisać klientów i serwery sieciowe
+bez obsługi gniazd sieciowych - wystarczy wysyłać i odbierać dane.
+Jednowątkowy silnik gniazd - skalowalny i szybki.
 
 %prep
 %setup -q -c -T
