@@ -1,12 +1,12 @@
 Summary:	Ruby event-processing library
 Summary(pl.UTF-8):	Biblioteka przetwarzania zdarzeń dla języka Ruby
 Name:		ruby-eventmachine
-Version:	0.7.0
+Version:	0.8.1
 Release:	1
 License:	GPL v2
 Group:		Development/Libraries
-Source0:	http://rubyforge.org/frs/download.php/14933/eventmachine-%{version}.gem
-# Source0-md5:	b22a7d79ba3beb6c38d1b44ddc39560f
+Source0:	http://rubyforge.org/frs/download.php/23381/eventmachine-%{version}.gem
+# Source0-md5:	ba21530745afdc5d913f70012dec9d26
 URL:		http://rubyforge.org/projects/eventmachine/
 BuildRequires:	rpmbuild(macros) >= 1.277
 BuildRequires:	ruby-devel
