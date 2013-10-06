@@ -1,18 +1,27 @@
+#
+# Conditional build:
+%bcond_with	tests		# build without tests
+
+%define	pkgname	eventmachine
 Summary:	Ruby event-processing library
 Summary(pl.UTF-8):	Biblioteka przetwarzania zdarzeń dla języka Ruby
-Name:		ruby-eventmachine
-Version:	0.8.1
+Name:		ruby-%{pkgname}
+Version:	1.0.3
 Release:	1
 License:	GPL v2
 Group:		Development/Libraries
-Source0:	http://rubyforge.org/frs/download.php/23381/eventmachine-%{version}.gem
-# Source0-md5:	ba21530745afdc5d913f70012dec9d26
-URL:		http://rubyforge.org/projects/eventmachine/
-BuildRequires:	rpmbuild(macros) >= 1.277
+Source0:	http://rubygems.org/downloads/%{pkgname}-%{version}.gem
+# Source0-md5:	579e4829c279995da1af5ac87713e1d0
+URL:		http://rubyeventmachine.com/
+BuildRequires:	rpm-rubyprov
+BuildRequires:	rpmbuild(macros) >= 1.656
 BuildRequires:	ruby-devel
-BuildRequires:	ruby-modules
-BuildRequires:	setup.rb
-%{?ruby_mod_ver_requires_eq}
+%if %{with tests}
+BuildRequires:	ruby-bluecloth
+BuildRequires:	ruby-rake-compiler < 0.9
+BuildRequires:	ruby-rake-compiler >= 0.8.3
+BuildRequires:	ruby-yard >= 0.8.5.2
+%endif
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -28,30 +37,29 @@ bez obsługi gniazd sieciowych - wystarczy wysyłać i odbierać dane.
 Jednowątkowy silnik gniazd - skalowalny i szybki.
 
 %prep
-%setup -q -c -T
-tar xf %{SOURCE0} -O data.tar.gz | tar xzv-
+%setup -q -n %{pkgname}-%{version}
 
 %build
-cp %{_datadir}/setup.rb .
-touch ext/MANIFEST
-ruby setup.rb config --rbdir=%{ruby_rubylibdir} --sodir=%{ruby_archdir}
-ruby setup.rb setup
+cd ext
+%{__ruby} extconf.rb
+%{__make} \
+	CC="%{__cc}" \
+	LDFLAGS="%{rpmldflags}" \
+	CFLAGS="%{rpmcflags} -fPIC"
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT%{ruby_rubylibdir}
-
-ruby setup.rb install --prefix=$RPM_BUILD_ROOT
+install -d $RPM_BUILD_ROOT{%{ruby_vendorlibdir},%{ruby_vendorarchdir}}
+cp -a lib/* $RPM_BUILD_ROOT%{ruby_vendorlibdir}
+install -p ext/rubyeventmachine.so $RPM_BUILD_ROOT%{ruby_vendorarchdir}
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc README RELEASE_NOTES TODO
-#%attr(755,root,root) %{_bindir}/*
-%{ruby_rubylibdir}/*.rb
-%{ruby_rubylibdir}/evma
-%{ruby_rubylibdir}/protocols
-%{ruby_rubylibdir}/em
-%attr(755,root,root) %{ruby_archdir}/*.so
+%doc README.md CHANGELOG.md LICENSE
+%{ruby_vendorlibdir}/em
+%{ruby_vendorlibdir}/eventmachine.rb
+%{ruby_vendorlibdir}/jeventmachine.rb
+%attr(755,root,root) %{ruby_vendorarchdir}/rubyeventmachine.so
